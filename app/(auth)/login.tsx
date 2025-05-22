@@ -1,4 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
+import { MagicScroll } from "@appandflow/react-native-magic-scroll";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -60,35 +61,57 @@ export default function login() {
         <Text style={styles.title}>Login</Text>
 
         {/* Inputs */}
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#999"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#999"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+        <MagicScroll.ScrollView>
+          <MagicScroll.TextInput
+            name="email"
+            renderInput={(magicProps) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#999"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                {...magicProps}
+              />
+            )}
+            chainTo="password"
+            textInputProps={{
+              style: styles.input,
+            }}
+          />
 
-        {/* Button */}
-        <TouchableOpacity
-          style={[styles.button, loading && { opacity: 0.6 }]}
-          onPress={handleLogin}
-          disabled={loading}
-        >
-          {loading ? (
-            <ActivityIndicator size="small" color="#000" />
-          ) : (
-            <Text style={styles.buttonText}>Login</Text>
-          )}
-        </TouchableOpacity>
+          <MagicScroll.TextInput
+            name="password"
+            renderInput={(magicProps) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#999"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+                {...magicProps}
+              />
+            )}
+            textInputProps={{
+              style: styles.input,
+            }}
+          />
+
+          {/* Button */}
+          <TouchableOpacity
+            style={[styles.button, loading && { opacity: 0.6 }]}
+            onPress={handleLogin}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator size="small" color="#000" />
+            ) : (
+              <Text style={styles.buttonText}>Login</Text>
+            )}
+          </TouchableOpacity>
+        </MagicScroll.ScrollView>
       </View>
       <Toast />
     </>
@@ -100,14 +123,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
-    height: "100%",
     backgroundColor: "#FEF3D9",
   },
   avatar: {
     width: 402,
     height: 402,
-    marginBottom: 0,
+    marginTop: 50,
   },
   title: {
     fontSize: 22,

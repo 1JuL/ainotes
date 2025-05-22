@@ -1,5 +1,6 @@
 import { useAuth } from "@/context/AuthContext";
 import { auth } from "@/utils/firebase";
+import { MagicScroll } from "@appandflow/react-native-magic-scroll";
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
@@ -49,7 +50,7 @@ export default function signup() {
         console.log({ error });
       }
       setTimeout(() => {
-        router.replace("/welcome");
+        router.replace("/additional_info");
       }, 1500);
     } catch (error: any) {
       console.log({ error });
@@ -77,51 +78,94 @@ export default function signup() {
         <Text style={styles.title}>Signup</Text>
 
         {/* Inputs */}
-        <TextInput
-          style={styles.input}
-          placeholder="Name"
-          placeholderTextColor="#999"
-          value={displayName}
-          onChangeText={setDisplayName}
-        />
+        <MagicScroll.ScrollView>
+          <MagicScroll.TextInput
+            name="name"
+            renderInput={(magicProps) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                placeholderTextColor="#999"
+                value={displayName}
+                onChangeText={setDisplayName}
+                {...magicProps}
+              />
+            )}
+            chainTo="email"
+            textInputProps={{
+              style: styles.input,
+            }}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#999"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Email"
-          placeholderTextColor="#999"
-          value={confirmEmail}
-          onChangeText={setConfirmEmail}
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#999"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+          <MagicScroll.TextInput
+            name="email"
+            renderInput={(magicProps) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#999"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                {...magicProps}
+              />
+            )}
+            chainTo="confirm-email"
+            textInputProps={{
+              style: styles.input,
+            }}
+          />
 
-        {/* Button */}
-        <TouchableOpacity
-          style={[styles.button, loading && { opacity: 0.6 }]}
-          onPress={handleSignup}
-          disabled={loading}
-        >
-          {loading ? (
-            <ActivityIndicator size="small" color="#000" />
-          ) : (
-            <Text style={styles.buttonText}>Signup</Text>
-          )}
-        </TouchableOpacity>
+          <MagicScroll.TextInput
+            name="confirm-email"
+            renderInput={(magicProps) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm Email"
+                placeholderTextColor="#999"
+                value={confirmEmail}
+                onChangeText={setConfirmEmail}
+                keyboardType="email-address"
+                {...magicProps}
+              />
+            )}
+            chainTo="password"
+            textInputProps={{
+              style: styles.input,
+            }}
+          />
+
+          <MagicScroll.TextInput
+            name="password"
+            renderInput={(magicProps) => (
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#999"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+                {...magicProps}
+              />
+            )}
+            textInputProps={{
+              style: styles.input,
+            }}
+          />
+
+          {/* Button */}
+          <TouchableOpacity
+            style={[styles.button, loading && { opacity: 0.6 }]}
+            onPress={handleSignup}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator size="small" color="#000" />
+            ) : (
+              <Text style={styles.buttonText}>Signup</Text>
+            )}
+          </TouchableOpacity>
+        </MagicScroll.ScrollView>
       </View>
       <Toast />
     </>
@@ -133,14 +177,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
-    height: "100%",
     backgroundColor: "#FEF3D9",
   },
   avatar: {
     width: 402,
     height: 402,
-    marginBottom: 0,
+    marginTop: 50,
   },
   title: {
     fontSize: 22,
@@ -161,7 +203,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 290,
     height: 50,
-    backgroundColor: "#F4AB9C", // dusty pink
+    backgroundColor: "#F4AB9C",
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",

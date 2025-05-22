@@ -33,51 +33,49 @@ export default function Home() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#FEF3D9", // cream
+    backgroundColor: "#FEF3D9",
     alignItems: "center",
+    justifyContent: "center",
   },
   card: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#FEF6E8", // cream background
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    paddingTop: 40,
+    width: "90%",
+    backgroundColor: "#FEF3D9",
+    borderRadius: 16,
+    padding: 20,
     alignItems: "center",
+    justifyContent: "center",
   },
   avatar: {
-    width: 402,
-    height: 402,
-    marginBottom: 0,
+    width: 400,
+    height: 400,
+    marginBottom: 20,
   },
   title: {
     fontSize: 26,
     fontWeight: "800",
-    marginBottom: 100,
+    marginBottom: 40,
     color: "#000",
   },
   loginButton: {
-    backgroundColor: "#F4AB9C", // dusty pink
+    backgroundColor: "#F4AB9C",
     width: 291,
     paddingVertical: 14,
-    paddingHorizontal: 60,
     borderRadius: 12,
-    marginBottom: 35,
+    marginBottom: 40,
   },
-  loginText: {
+  signupButton: {
+    backgroundColor: "#FFEAA4",
+    width: 291,
+    paddingVertical: 14,
+    borderRadius: 12,
+  },
+  signupText: {
     fontSize: 16,
     fontWeight: "600",
     color: "#000",
     alignSelf: "center",
   },
-  signupButton: {
-    backgroundColor: "#FFEAA4", // pastel yellow
-    width: 291,
-    paddingVertical: 14,
-    paddingHorizontal: 60,
-    borderRadius: 12,
-  },
-  signupText: {
+  loginText: {
     fontSize: 16,
     fontWeight: "600",
     color: "#000",
