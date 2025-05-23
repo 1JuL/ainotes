@@ -41,7 +41,7 @@ export default function AdditionalInfo() {
   }, [user]);
 
   const changeScreen = () => {
-    router.replace("/dashboard");
+    router.replace("/welcome");
   };
 
   const handleSubmit = async () => {
